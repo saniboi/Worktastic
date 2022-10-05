@@ -1,0 +1,73 @@
+﻿@model Worktastic.Models.JobPosting
+
+@{
+    ViewData["Title"] = "Erstellen oder Bearbeiten";
+}
+
+<form asp-controller="JobPosting" asp-action="CreateEditJob" enctype="multipart/form-data">
+    
+    <div class="card">
+        <div class="card-header">
+            <h5>Inserat bearbeiten</h5>
+        </div>
+
+        <div class="card-body">
+            
+            <input hidden asp-for="Id"/>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="JobTitle" type="text" placeholder="Bitte trage eine Jobbezeichnung ein"/>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="JobLocation" type="text" placeholder="Bitte trage einen Ort ein"/>
+                </div>
+                <div class="col-12">
+                    <textarea rows="6" class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="Description" placeholder="Bitte trage eine ausführliche Beschreibung ein"></textarea>
+                </div>
+                <div class="col-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="Salary" type="number" placeholder="Bitte trage den Jahresgehalt ein"/>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-3">
+                    <div class="col-form-label">
+                        Wann startet der Job?
+                    </div>
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="StartDate" type="date" placeholder="Bitte Startdatum auswählen"/>
+                </div>
+            </div>
+            
+            <hr/>
+            
+            <div class="row g-3">
+                <div class="col-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="CompanyName" type="text" placeholder="Firmenname eintragen"/>
+                </div>
+                <div class="col-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="ContactWebsite" type="url" placeholder="Firmenwebseite eintragen"/>
+                </div>
+                <div class="col-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="ContactPhone" type="tel" placeholder="Kontakt Telefonnummer eintragen"/>
+                </div>
+                <div class="col-6">
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" asp-for="ContactMail" type="email" placeholder="Kontakt E-Mail eintragen"/>
+                </div>
+            </div>
+            
+            <hr/>
+            
+            <div class="row g-3">
+                <div class="col-6">
+                    <label>Bild</label>
+                    <input class="form-control shadow p-1 mb-0 bg-white rounded" name="file2" type="file"/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer">
+            <button class="btn btn-primary" type="submit">Speichern</button>
+        </div>
+    </div>
+</form>

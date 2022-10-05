@@ -1,0 +1,90 @@
+﻿@model List<JobPosting>
+
+@{
+    ViewData["Title"] = "Job Übersicht";
+}
+
+<div class=" col-12 p-5 mb-4 bg-dark rounded-3 bg-primary">
+    <div class="display-1 text-white text-center">
+        Worktastic
+    </div>
+</div>
+
+<h4>
+    Finde einen Traumjob in deiner Nähe!
+</h4>
+
+<div class="row">
+    <div class="col-10">
+        <input id="inputQuery" class="form-control-lg form-control mt-2 shadow" type="text" placeholder="Wonach suchst du?" />
+    </div>
+
+    <div class="col-2 text-end">
+        <button onclick="onClickSearch()" class="btn btn-lg btn-primary me-0 mt-2">Suchen</button>
+    </div>
+</div>
+
+<hr class="mt-4" />
+
+<div id="partialList">
+
+</div>
+
+<div class="modal fade" id="modalJobPosting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                <img id="modalImage" class="img-fluid" src=""/>
+
+                <div id="modalDescription">
+
+                </div>
+                <div class="mt-2" id="modalSalary">
+
+                </div>
+                <hr/>
+                <div id="modalContact">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        $('#partialList').load("/home/GetJobPostingsPartial/");
+
+        function onClickSearch() {
+            var query = $('#inputQuery').val();
+            $('#partialList').load("/home/GetJobPostingsPartial?query=" + query);
+        }
+
+        function showModal(id) {
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetJobPosting")",
+                data: { id: id },
+                success: function(data) {
+
+                    $('#modalImage').attr('src',`data:image / png;base64,${data.companyImage}`);
+
+                    $('#modalTitel').text(data.jobTitle);
+                    $('#modalDescription').text("Jobbezeichnung: " + data.description);
+                    $('#modalContact').text("Kontakt: " + data.contactMail);
+                    $('#modalSalary').text("Jahresgehalt: " + data.salary + " CHF");
+
+                    $('#modalJobPosting').modal('show');
+                },
+            });
+        }
+    </script>
+}
